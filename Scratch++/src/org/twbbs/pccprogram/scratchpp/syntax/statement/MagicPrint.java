@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.Optional;
 
+import org.twbbs.pccprogram.scratchpp.CompileException;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.syntax.Layout;
 import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
@@ -77,6 +78,8 @@ public class MagicPrint extends Symbol implements Statement {
 		if (getInnersCount() > 0) {
 			env.write(((Expression) getInner(0)).evaluate(env)
 					+ System.lineSeparator());
+		} else {
+			throw new CompileException("no expression in print statement");
 		}
 	}
 

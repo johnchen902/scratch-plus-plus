@@ -146,6 +146,8 @@ public class FloatingLiteralX {
 	 */
 	public static FloatingLiteralX valueOf(String x)
 			throws NumberFormatException {
+		if (!x.matches("(([0-9]*\\.[0-9]+|[0-9]+\\.)([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)[flFL]?"))
+			throw new NumberFormatException("not a floating literal");
 		if (x.endsWith("l") || x.endsWith("L"))
 			throw new NumberFormatException("long double is unsupported");
 		boolean isFloat = false;

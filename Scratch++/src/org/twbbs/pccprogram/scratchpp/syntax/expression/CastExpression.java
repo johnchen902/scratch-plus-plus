@@ -7,14 +7,15 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.twbbs.pccprogram.scratchpp.CompileException;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.object.ArithmeticType;
 import org.twbbs.pccprogram.scratchpp.object.ArithmeticValue;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
 import org.twbbs.pccprogram.scratchpp.syntax.Layout;
-import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
 import org.twbbs.pccprogram.scratchpp.syntax.PrimitiveType;
+import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
 
 /**
  * Denote a C-style cast expression.
@@ -130,20 +131,26 @@ public class CastExpression extends Symbol implements Expression {
 
 	@Override
 	public Type getType(RuntimeEnvironment env) {
-		if (hasType)
-			return ((PrimitiveType) getTypeSymbol()).getType();
-		throw new RuntimeException("where's the type?");
+		if (!hasType)
+			throw new CompileException("no type in cast expression");
+		if (!hasExpr)
+			throw new CompileException("no expression in cast expression");
+		return ((PrimitiveType) getTypeSymbol()).getType();
 	}
 
 	@Override
 	public Value evaluate(RuntimeEnvironment env) {
+		if (!hasType)
+			throw new CompileException("no type in cast expression");
+		if (!hasExpr)
+			throw new CompileException("no expression in cast expression");
 		Type type = getType(env);
-		Value val = ((Expression) getInner(1)).evaluate(env);
+		Value val = ((Expression) getExprSymbol()).evaluate(env);
 		if (type instanceof ArithmeticType
 				&& val.getType() instanceof ArithmeticType) {
 			return ((ArithmeticType) type).of((ArithmeticValue) val);
 		}
-		throw new RuntimeException("cannot cast " + val + " and " + type);
+		throw new CompileException("cannot cast " + val + " to " + type);
 	}
 
 	@Override

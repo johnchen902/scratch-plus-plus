@@ -77,28 +77,30 @@ public class Interpreter {
 			}
 
 			protected void done() {
-				StringBuilder s = new StringBuilder("Program returned ");
 				SignedInt i = null;
-				Throwable err = null;
+				String err = null;
 				try {
 					i = get();
 				} catch (InterruptedException | ExecutionException e) {
-					if (e instanceof ExecutionException)
-						err = e.getCause();
+					if (e instanceof ExecutionException
+							&& e.getCause() instanceof CompileException)
+						err = e.getCause().getMessage();
+					else
+						System.err.println(e);
 				}
-				if (i != null) {
-					s.append(i).append(" (0x")
-							.append(Integer.toHexString(i.getValue()))
-							.append(')');
-				} else {
-					s.append("a non-int value");
-				}
-				s.append("   execution time : ").append((end - start) / 1000.0)
-						.append(" s").append(System.lineSeparator());
+				String s;
 				if (err != null) {
-					s.append(err).append(System.lineSeparator());
+					s = "Compile error: " + err;
+				} else if (i == null) {
+					s = "Program returned a non-int value";
+				} else {
+					s = "Program returned " + i + " (0x"
+							+ Integer.toHexString(i.getValue()) + ")";
 				}
-				textArea.append(s.toString());
+				s += System.lineSeparator() + "Execution time : "
+						+ (end - start) / 1000.0 + " s"
+						+ System.lineSeparator();
+				textArea.append(s);
 			};
 		}.execute();
 	}
