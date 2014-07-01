@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 
 import org.twbbs.pccprogram.scratchpp.syntax.PrimitiveType;
 import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
+import org.twbbs.pccprogram.scratchpp.syntax.literal.BooleanLiteral;
+import org.twbbs.pccprogram.scratchpp.syntax.literal.CharacterLiteral;
 import org.twbbs.pccprogram.scratchpp.syntax.literal.FloatingLiteral;
 import org.twbbs.pccprogram.scratchpp.syntax.literal.IntegerLiteral;
 
@@ -38,6 +40,14 @@ public class NewLiteralPanel extends JPanel {
 		JButton btFloat = new JButton("Floating Literal");
 		btFloat.addActionListener(new MyActionListener(FloatingLiteral::new));
 		pnUp.add(btFloat);
+
+		JButton btChar = new JButton("Character Literal");
+		btChar.addActionListener(new MyActionListener(CharacterLiteral::new));
+		pnUp.add(btChar);
+
+		JButton btBool = new JButton("Boolean Literal");
+		btBool.addActionListener(new MyActionListener(BooleanLiteral::valueOf));
+		pnUp.add(btBool);
 
 		JButton btType = new JButton("Primitive Type");
 		btType.addActionListener(new MyActionListener(PrimitiveType::new));

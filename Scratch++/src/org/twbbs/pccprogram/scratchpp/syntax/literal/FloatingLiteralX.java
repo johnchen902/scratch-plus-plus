@@ -3,17 +3,24 @@ package org.twbbs.pccprogram.scratchpp.syntax.literal;
 import java.math.BigDecimal;
 
 /**
- * A model of a C++ floating-literal.
+ * A model of a C++ floating-literal, including the sign.
  * 
  * @author johnchen902
  */
 public class FloatingLiteralX {
 	private final BigDecimal value;
 	private final boolean isFloat;
+	private final boolean isLongDouble;
 
 	private FloatingLiteralX(BigDecimal value, boolean isFloat) {
+		this(value, isFloat, false);
+	}
+
+	private FloatingLiteralX(BigDecimal value, boolean isFloat,
+			boolean isLongDouble) {
 		this.value = value;
 		this.isFloat = isFloat;
+		this.isLongDouble = isLongDouble;
 	}
 
 	/**
@@ -35,11 +42,23 @@ public class FloatingLiteralX {
 		return isFloat;
 	}
 
+	/**
+	 * Check if the literal is of type <code>long double</code>
+	 * 
+	 * @return <code>true</code> if the literal is a <code>long double</code>;
+	 *         <code>false</code> otherwise
+	 */
+	public boolean isLongDouble() {
+		return isLongDouble;
+	}
+
 	@Override
 	public String toString() {
 		String s = value.toString();
 		if (isFloat)
 			s += "f";
+		else if (isLongDouble)
+			s += "L";
 		return s;
 	}
 
@@ -53,6 +72,7 @@ public class FloatingLiteralX {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (isFloat ? 1231 : 1237);
+		result = prime * result + (isLongDouble ? 1231 : 1237);
 		result = prime * result + value.hashCode();
 		return result;
 	}
@@ -72,6 +92,8 @@ public class FloatingLiteralX {
 			return false;
 		FloatingLiteralX other = (FloatingLiteralX) obj;
 		if (isFloat != other.isFloat)
+			return false;
+		if (isLongDouble != other.isLongDouble)
 			return false;
 		if (!value.equals(other.value))
 			return false;
@@ -146,15 +168,17 @@ public class FloatingLiteralX {
 	 */
 	public static FloatingLiteralX valueOf(String x)
 			throws NumberFormatException {
-		if (!x.matches("(([0-9]*\\.[0-9]+|[0-9]+\\.)([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)[flFL]?"))
+		if (!x.matches("[+-]?(([0-9]*\\.[0-9]+|[0-9]+\\.)([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)[flFL]?"))
 			throw new NumberFormatException("not a floating literal");
-		if (x.endsWith("l") || x.endsWith("L"))
-			throw new NumberFormatException("long double is unsupported");
 		boolean isFloat = false;
+		boolean isLongDouble = false;
 		if (x.endsWith("f") || x.endsWith("F")) {
 			isFloat = true;
 			x = x.substring(0, x.length() - 1);
+		} else if (x.endsWith("l") || x.endsWith("L")) {
+			isLongDouble = true;
+			x = x.substring(0, x.length() - 1);
 		}
-		return new FloatingLiteralX(new BigDecimal(x), isFloat);
+		return new FloatingLiteralX(new BigDecimal(x), isFloat, isLongDouble);
 	}
 }

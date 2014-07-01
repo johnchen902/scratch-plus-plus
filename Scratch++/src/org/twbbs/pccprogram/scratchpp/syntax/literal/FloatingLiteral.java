@@ -3,11 +3,12 @@ package org.twbbs.pccprogram.scratchpp.syntax.literal;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
-import org.twbbs.pccprogram.scratchpp.object.floating.Double;
-import org.twbbs.pccprogram.scratchpp.object.floating.Float;
+import org.twbbs.pccprogram.scratchpp.object.primitive.CDouble;
+import org.twbbs.pccprogram.scratchpp.object.primitive.CFloat;
+import org.twbbs.pccprogram.scratchpp.object.primitive.LongDouble;
 
 /**
- * The view of a C++ floating-literal.
+ * The view of a C++ floating-literal, including the sign.
  * 
  * @author johnchen902
  */
@@ -113,14 +114,17 @@ public class FloatingLiteral extends Literal<FloatingLiteralX> {
 
 	@Override
 	public Type getType(RuntimeEnvironment env) {
-		return value.isFloat() ? Float.TYPE : Double.TYPE;
+		return value.isFloat() ? CFloat.TYPE
+				: value.isLongDouble() ? LongDouble.TYPE : CDouble.TYPE;
 	}
 
 	@Override
 	public Value evaluate(RuntimeEnvironment env) {
 		if (value.isFloat())
-			return new Float(value.getValue().floatValue());
+			return new CFloat(value.getValue().floatValue());
+		else if (value.isLongDouble())
+			return new LongDouble(value.getValue().doubleValue());
 		else
-			return new Double(value.getValue().doubleValue());
+			return new CDouble(value.getValue().doubleValue());
 	}
 }

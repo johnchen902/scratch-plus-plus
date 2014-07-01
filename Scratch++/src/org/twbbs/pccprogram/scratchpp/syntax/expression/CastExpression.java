@@ -9,10 +9,9 @@ import java.util.Optional;
 
 import org.twbbs.pccprogram.scratchpp.CompileException;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
-import org.twbbs.pccprogram.scratchpp.object.ArithmeticType;
-import org.twbbs.pccprogram.scratchpp.object.ArithmeticValue;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
+import org.twbbs.pccprogram.scratchpp.object.primitive.PrimitiveConversion;
 import org.twbbs.pccprogram.scratchpp.syntax.Layout;
 import org.twbbs.pccprogram.scratchpp.syntax.PrimitiveType;
 import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
@@ -146,9 +145,9 @@ public class CastExpression extends Symbol implements Expression {
 			throw new CompileException("no expression in cast expression");
 		Type type = getType(env);
 		Value val = ((Expression) getExprSymbol()).evaluate(env);
-		if (type instanceof ArithmeticType
-				&& val.getType() instanceof ArithmeticType) {
-			return ((ArithmeticType) type).of((ArithmeticValue) val);
+		if (PrimitiveConversion.isPrimitiveType(type)
+				&& PrimitiveConversion.isPrimitiveType(val.getType())) {
+			return PrimitiveConversion.convert(type, val);
 		}
 		throw new CompileException("cannot cast " + val + " to " + type);
 	}

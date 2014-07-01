@@ -3,7 +3,7 @@ package org.twbbs.pccprogram.scratchpp.syntax.literal;
 import java.util.Objects;
 
 /**
- * A model of a C++ integer-literal.
+ * A model of a C++ integer-literal, including the sign.
  * 
  * @author johnchen902
  */

@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedInt;
 import org.twbbs.pccprogram.scratchpp.syntax.function.MainFunction;
 
 /**

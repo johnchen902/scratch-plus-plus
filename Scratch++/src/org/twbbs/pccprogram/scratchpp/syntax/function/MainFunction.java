@@ -11,7 +11,7 @@ import java.awt.geom.Path2D;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedInt;
 import org.twbbs.pccprogram.scratchpp.syntax.Block;
 import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
 import org.twbbs.pccprogram.scratchpp.syntax.statement.Statement;

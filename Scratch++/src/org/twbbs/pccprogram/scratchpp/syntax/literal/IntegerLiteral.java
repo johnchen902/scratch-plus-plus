@@ -3,15 +3,15 @@ package org.twbbs.pccprogram.scratchpp.syntax.literal;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedInt;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedLongLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedInt;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedLongLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedLongLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedLongLong;
 
 /**
- * The view of a C++ integer-literal.
+ * The view of a C++ integer-literal, including the sign.
  * 
  * @author johnchen902
  */

@@ -8,14 +8,21 @@ import java.util.Objects;
 
 import org.twbbs.pccprogram.scratchpp.FontManager;
 import org.twbbs.pccprogram.scratchpp.object.Type;
-import org.twbbs.pccprogram.scratchpp.object.floating.Double;
-import org.twbbs.pccprogram.scratchpp.object.floating.Float;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedInt;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.SignedLongLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedInt;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedLong;
-import org.twbbs.pccprogram.scratchpp.object.integral.UnsignedLongLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.Bool;
+import org.twbbs.pccprogram.scratchpp.object.primitive.CDouble;
+import org.twbbs.pccprogram.scratchpp.object.primitive.CFloat;
+import org.twbbs.pccprogram.scratchpp.object.primitive.Char;
+import org.twbbs.pccprogram.scratchpp.object.primitive.LongDouble;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedChar;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedLongLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.SignedShort;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedChar;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedInt;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedLongLong;
+import org.twbbs.pccprogram.scratchpp.object.primitive.UnsignedShort;
 
 /**
  * The view of a primitive type in C++.
@@ -73,10 +80,6 @@ public class PrimitiveType extends Symbol {
 		return new RoundRectangle2D.Double(x, y, w, h, h, h);
 	}
 
-	private static IllegalArgumentException unsupported(String str) {
-		return new IllegalArgumentException(str + " is not yet supported");
-	}
-
 	/**
 	 * Get the primitive type denoted by the string
 	 * 
@@ -87,21 +90,21 @@ public class PrimitiveType extends Symbol {
 	public static Type typeOf(String s) {
 		switch (s) {
 		case "bool":
-			throw unsupported("bool");
+			return Bool.TYPE;
 		case "char":
-			throw unsupported("char");
+			return Char.TYPE;
 		case "signed char":
-			throw unsupported("signed char");
+			return SignedChar.TYPE;
 		case "unsigned char":
-			throw unsupported("unsigned char");
+			return UnsignedChar.TYPE;
 		case "short":
 		case "short int":
 		case "signed short":
 		case "signed short int":
-			throw unsupported("short");
+			return SignedShort.TYPE;
 		case "unsigned short":
 		case "unsigned short int":
-			throw unsupported("unsigned short");
+			return UnsignedShort.TYPE;
 		case "int":
 		case "signed":
 		case "signed int":
@@ -126,9 +129,11 @@ public class PrimitiveType extends Symbol {
 		case "unsigned long long int":
 			return UnsignedLongLong.TYPE;
 		case "float":
-			return Float.TYPE;
+			return CFloat.TYPE;
 		case "double":
-			return Double.TYPE;
+			return CDouble.TYPE;
+		case "long double":
+			return LongDouble.TYPE;
 		}
 		throw new IllegalArgumentException("unknown type " + s);
 	}
