@@ -378,10 +378,11 @@ public abstract class Symbol implements Cloneable {
 	public Symbol clone() {
 		try {
 			Symbol clone = (Symbol) super.clone();
+			clone.parent = null;
 			clone.inners = new ArrayList<>();
 			for (Symbol inner : inners) {
 				Symbol innerClone = inner.clone();
-				innerClone.parent = this;
+				innerClone.parent = clone;
 				clone.inners.add(innerClone);
 				innerClone.invalidate(false);
 			}

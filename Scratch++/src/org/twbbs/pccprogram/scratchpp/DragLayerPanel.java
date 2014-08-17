@@ -89,7 +89,9 @@ public class DragLayerPanel extends JPanel {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			if (dragged != null) {
+			if (dragged == null)
+				return;
+			if (e.getButton() == MouseEvent.BUTTON1) {
 				Optional<DragDropTarget> target = list
 						.stream()
 						.filter(ddt -> {

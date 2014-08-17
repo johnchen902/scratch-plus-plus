@@ -58,9 +58,11 @@ public class SymbolPanel extends JPanel implements DragDropTarget {
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension d = super.getPreferredSize();
-		d.width = symbols.stream().mapToInt(x -> x.getX() + x.getWidth()).max()
-				.orElse(0) + 10;
-		d.height = symbols.stream().mapToInt(x -> x.getY() + x.getHeight())
+		d.width = symbols.stream()
+				.mapToInt(x -> (int) x.getAllShape().getBounds().getMaxX())
+				.max().orElse(0) + 10;
+		d.height = symbols.stream()
+				.mapToInt(x -> (int) x.getAllShape().getBounds().getMaxY())
 				.max().orElse(0) + 10;
 		return d;
 	}
@@ -68,17 +70,26 @@ public class SymbolPanel extends JPanel implements DragDropTarget {
 	private class MyMouseAdapter extends MouseAdapter {
 		@Override
 		public void mousePressed(MouseEvent e) {
-			Symbol dragged = findTarget(x -> x.getShape()
-					.contains(e.getPoint()));
-			if (dragged != null) {
+			Symbol symbol = findTarget(x -> x.getShape().contains(e.getPoint()));
+			if (symbol == null)
+				return;
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				Symbol dragged = symbol;
 				if (dragged.getParent() != null)
 					dragged.getParent().remove(dragged);
 				else
 					symbols.remove(dragged);
 				dlp.startDrag(SymbolPanel.this, dragged, e.getPoint());
-				revalidate();
-				repaint();
+			} else {
+				if (!(symbol instanceof MainFunction)) {
+					Symbol clone = symbol.clone();
+					clone.setX(clone.getX() + 10);
+					clone.setY(clone.getY() + 10);
+					symbols.add(0, clone);
+				}
 			}
+			revalidate();
+			repaint();
 		}
 	}
 

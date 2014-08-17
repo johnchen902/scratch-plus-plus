@@ -45,7 +45,7 @@ public class NewSymbolPanel extends JPanel implements DragDropTarget {
 				Optional<Symbol> opt = symbols.stream()
 						.filter(x -> x.getShape().contains(e.getPoint()))
 						.findAny();
-				if (opt.isPresent()) {
+				if (opt.isPresent() && e.getButton() == MouseEvent.BUTTON1) {
 					dlp.startDrag(NewSymbolPanel.this, opt.get().clone(),
 							e.getPoint());
 				}
