@@ -1,13 +1,13 @@
 package org.twbbs.pccprogram.scratchpp.syntax.function;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
+import org.twbbs.pccprogram.scratchpp.FontManager;
 import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.object.Type;
 import org.twbbs.pccprogram.scratchpp.object.Value;
@@ -40,7 +40,7 @@ public class MainFunction extends Block implements Function {
 		super.paint(g);
 
 		g.setColor(Color.WHITE);
-		g.setFont(g.getFont().deriveFont(Font.BOLD));
+		g.setFont(FontManager.getFont());
 
 		g.drawString("main", getX() + 10, getY() + 20);
 	}

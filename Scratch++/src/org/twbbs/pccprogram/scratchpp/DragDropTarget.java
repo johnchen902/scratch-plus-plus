@@ -20,7 +20,7 @@ public interface DragDropTarget {
 	 *            the symbol
 	 * @return <code>true</code> if can be dropped; <code>false</code> otherwise
 	 */
-	public boolean canAccept(Symbol symbol);
+	public boolean canAccept(Symbol symbol, Point p);
 
 	/**
 	 * Drop the symbol.

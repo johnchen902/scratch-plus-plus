@@ -100,7 +100,7 @@ public class DragLayerPanel extends JPanel {
 								return false;
 							dragged.setX(p.x + offset.x);
 							dragged.setY(p.y + offset.y);
-							return ddt.canAccept(dragged);
+							return ddt.canAccept(dragged, p);
 						}).findFirst();
 				if (target.isPresent()) {
 					DragDropTarget ddt = target.get();

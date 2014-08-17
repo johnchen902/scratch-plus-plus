@@ -16,7 +16,12 @@ import java.util.Optional;
 import javax.swing.JPanel;
 
 import org.twbbs.pccprogram.scratchpp.syntax.Symbol;
+import org.twbbs.pccprogram.scratchpp.syntax.expression.AddExpression;
 import org.twbbs.pccprogram.scratchpp.syntax.expression.CastExpression;
+import org.twbbs.pccprogram.scratchpp.syntax.expression.DivideExpression;
+import org.twbbs.pccprogram.scratchpp.syntax.expression.MinusExpression;
+import org.twbbs.pccprogram.scratchpp.syntax.expression.ModuleExpression;
+import org.twbbs.pccprogram.scratchpp.syntax.expression.MultiplyExpression;
 import org.twbbs.pccprogram.scratchpp.syntax.function.MainFunction;
 import org.twbbs.pccprogram.scratchpp.syntax.statement.MagicPrint;
 
@@ -97,7 +102,7 @@ public class NewSymbolPanel extends JPanel implements DragDropTarget {
 	}
 
 	@Override
-	public boolean canAccept(Symbol symbol) {
+	public boolean canAccept(Symbol symbol, Point p) {
 		return true;
 	}
 
@@ -123,6 +128,11 @@ public class NewSymbolPanel extends JPanel implements DragDropTarget {
 		ncp.addSymbol(new MainFunction(10, 10));
 		ncp.addSymbol(new MagicPrint(10, 10));
 		ncp.addSymbol(new CastExpression(10, 10));
+		ncp.addSymbol(new AddExpression(10, 10));
+		ncp.addSymbol(new MinusExpression(10, 10));
+		ncp.addSymbol(new MultiplyExpression(10, 10));
+		ncp.addSymbol(new DivideExpression(10, 10));
+		ncp.addSymbol(new ModuleExpression(10, 10));
 		return ncp;
 	}
 }

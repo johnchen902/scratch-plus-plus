@@ -83,10 +83,12 @@ public class SymbolPanel extends JPanel implements DragDropTarget {
 	}
 
 	@Override
-	public boolean canAccept(Symbol symbol) {
+	public boolean canAccept(Symbol symbol, Point p) {
 		if (symbol instanceof MainFunction
 				&& symbols.stream().anyMatch(x -> x instanceof MainFunction))
 			return false;
+		if (findTarget(x -> x.isDroppable(symbol, p)) != null)
+			return true;
 		if (symbol.getX() < 0)
 			return false;
 		if (symbol.getY() < 0)

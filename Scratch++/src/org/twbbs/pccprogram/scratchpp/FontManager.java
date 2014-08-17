@@ -4,8 +4,6 @@ import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 
-import javax.swing.JPanel;
-
 /**
  * A manager of font.
  * 
@@ -13,8 +11,7 @@ import javax.swing.JPanel;
  */
 public class FontManager {
 
-	private static final Font FONT = new JPanel().getFont().deriveFont(
-			Font.BOLD);
+	private static final Font FONT = new Font("consolas", Font.BOLD, 14);
 
 	/**
 	 * Get the width of a specified text

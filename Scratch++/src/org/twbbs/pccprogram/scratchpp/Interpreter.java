@@ -78,19 +78,23 @@ public class Interpreter {
 
 			protected void done() {
 				SignedInt i = null;
-				String err = null;
+				Throwable err = null;
 				try {
 					i = get();
-				} catch (InterruptedException | ExecutionException e) {
-					if (e instanceof ExecutionException
-							&& e.getCause() instanceof CompileException)
-						err = e.getCause().getMessage();
+				} catch (InterruptedException e) {
+					System.err.println(e);
+				} catch (ExecutionException e) {
+					if (e instanceof ExecutionException)
+						err = e.getCause();
 					else
-						System.err.println(e);
+						err = e;
 				}
 				String s;
 				if (err != null) {
-					s = "Compile error: " + err;
+					if (err instanceof CompileException)
+						s = "Compile error: " + err.getMessage();
+					else
+						s = "Runtime error: " + err;
 				} else if (i == null) {
 					s = "Program returned a non-int value";
 				} else {

@@ -26,33 +26,19 @@ public class PrimitiveConversion {
 	public static boolean isPrimitiveType(Type type) {
 		switch (type.getName()) {
 		case "bool":
-			return true;
 		case "char":
-			return true;
 		case "signed char":
-			return true;
 		case "unsigned char":
-			return true;
 		case "short int":
-			return true;
 		case "unsigned short int":
-			return true;
 		case "int":
-			return true;
 		case "unsigned int":
-			return true;
 		case "long int":
-			return true;
 		case "unsigned long int":
-			return true;
 		case "long long int":
-			return true;
 		case "unsigned long long int":
-			return true;
 		case "float":
-			return true;
 		case "double":
-			return true;
 		case "long double":
 			return true;
 		}
