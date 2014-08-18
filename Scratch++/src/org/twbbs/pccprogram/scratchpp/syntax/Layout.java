@@ -72,7 +72,7 @@ public class Layout {
 	 */
 	public Layout addString(String str) {
 		Objects.requireNonNull(str);
-		return drawString(() -> str);
+		return addString(() -> str);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class Layout {
 	 *            the supplier of the string
 	 * @return <code>this</code>
 	 */
-	public Layout drawString(Supplier<String> sup) {
+	public Layout addString(Supplier<String> sup) {
 		Objects.requireNonNull(sup);
 		objs.add(new Obj() {
 			@Override

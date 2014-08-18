@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.util.List;
 
+import org.twbbs.pccprogram.scratchpp.Interpreter.RuntimeEnvironment;
 import org.twbbs.pccprogram.scratchpp.syntax.statement.Statement;
 
 /**
@@ -15,7 +16,7 @@ import org.twbbs.pccprogram.scratchpp.syntax.statement.Statement;
  * 
  * @author johnchen902
  */
-public class Block extends Symbol {
+public class Block extends Symbol implements Statement {
 	private int heightTop, widthLeft, heightBottom, heightEmpty;
 
 	/**
@@ -180,5 +181,11 @@ public class Block extends Symbol {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void execute(RuntimeEnvironment env) {
+		for (int i = getBlockStart(); i < getBlockEnd(); i++)
+			((Statement) getInner(i)).execute(env);
 	}
 }

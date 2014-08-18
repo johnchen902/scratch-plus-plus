@@ -23,6 +23,7 @@ import org.twbbs.pccprogram.scratchpp.syntax.expression.MinusExpression;
 import org.twbbs.pccprogram.scratchpp.syntax.expression.ModuleExpression;
 import org.twbbs.pccprogram.scratchpp.syntax.expression.MultiplyExpression;
 import org.twbbs.pccprogram.scratchpp.syntax.function.MainFunction;
+import org.twbbs.pccprogram.scratchpp.syntax.statement.IfStatement;
 import org.twbbs.pccprogram.scratchpp.syntax.statement.MagicPrint;
 
 /**
@@ -127,6 +128,7 @@ public class NewSymbolPanel extends JPanel implements DragDropTarget {
 		NewSymbolPanel ncp = new NewSymbolPanel(dlp);
 		ncp.addSymbol(new MainFunction(10, 10));
 		ncp.addSymbol(new MagicPrint(10, 10));
+		ncp.addSymbol(new IfStatement(10, 10));
 		ncp.addSymbol(new CastExpression(10, 10));
 		ncp.addSymbol(new AddExpression(10, 10));
 		ncp.addSymbol(new MinusExpression(10, 10));
